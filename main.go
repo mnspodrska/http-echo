@@ -15,7 +15,7 @@ import (
 
 var (
 	listenFlag  = flag.String("listen", ":5678", "address and port to listen")
-	textFlag    = flag.String("text", "", "text to put on the webpage")
+	textFlag    = flag.String("text", "http-echo", "text to put on the webpage")
 
 	// stdoutW and stderrW are for overriding in test.
 	stdoutW = os.Stdout
