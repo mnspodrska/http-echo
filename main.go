@@ -97,12 +97,16 @@ func formatRequest(r *http.Request) string {
  // Create return string
  var request []string
  // Add remote address
- remote := fmt.Sprintf("Remote: %s",ReadUserIP(r))
+ remote := fmt.Sprintf("Remote: %s",r.RemoteAddr)
  request = append(request, remote)
+
+ remoteff := fmt.Sprintf("Forwarded-For: %s",ReadForwardedUserIP(r))
+ request = append(request, remoteff)
 
  // Add the request string
  url := fmt.Sprintf("%v %v %v", r.Method, r.URL, r.Proto)
  request = append(request, url)
+
  // Add the host
  request = append(request, fmt.Sprintf("Host: %v", r.Host))
  // Loop through headers
@@ -123,7 +127,7 @@ func formatRequest(r *http.Request) string {
   return strings.Join(request, "\n")
 }
 
-func ReadUserIP(r *http.Request) string {
+func ReadForwardedUserIP(r *http.Request) string {
     IPAddress := r.Header.Get("X-Real-Ip")
     if IPAddress == "" {
         IPAddress = r.Header.Get("X-Forwarded-For")
