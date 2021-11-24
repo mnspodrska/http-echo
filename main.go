@@ -78,7 +78,7 @@ func main() {
 func httpEcho(v string) http.HandlerFunc {
 	h, _ := os.Hostname()
 	ips, _:= net.InterfaceAddrs()
-	text := fmt.Sprintf("%v\n\nPort: %s\nHostname: %v\nIPs: %v\n", v, *listenFlag, h, ips)
+	text := fmt.Sprintf("%v\n\nListen: %s\nHostname: %v\nIPs: %v\n", v, *listenFlag, h, ips)
  
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, text)
